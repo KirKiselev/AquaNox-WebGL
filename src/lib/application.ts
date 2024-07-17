@@ -1,3 +1,4 @@
+ //@ts-nocheck
 import { Renderer } from "./renderer";
 import { InputController } from "./inputcontroller";
 import { DataModel } from "./datamodel";
@@ -11,10 +12,11 @@ export class Application {
 
   private canvas: HTMLCanvasElement;
   private glContext: WebGLRenderingContext | null;
-  private renderer;
+  
   private inputcontroller;
   private assetsmanager;
   private datamodel;
+  private renderer;
 
   public constructor(canvas: HTMLCanvasElement) {
     //
@@ -26,10 +28,11 @@ export class Application {
     this.glContext = this.canvas.getContext("webgl");
     if (!this.glContext) throw new Error("Rendering context not created");
 
-    this.renderer = new Renderer(this.glContext as WebGLRenderingContext);
+    
     this.inputcontroller = new InputController();
     this.assetsmanager = new AssetsManager(this.glContext as WebGLRenderingContext, 1024, this.gamelevelmap);
     this.datamodel = new DataModel(this.assetsmanager, this.gamelevelmap);
+    this.renderer = new Renderer(this.glContext as WebGLRenderingContext, this.datamodel);
 
     this.start();
   }
@@ -39,6 +42,12 @@ export class Application {
 
     setTimeout(() => {
       this.datamodel!.addGameObjects();
+    }, 500);
+
+    setTimeout(() => {
+      this.renderer.cullObjectsToRender()
+      this.renderer.prepareScene();
+      this.renderer.renderScene();
     }, 500);
   }
 }

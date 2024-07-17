@@ -22,6 +22,7 @@ export class DataModel {
       currentObject = this.gameLevelMap.gameObjects[object];
       this.gameData.push(new GameObject(currentObject.position, currentObject.rotation, this.store.models[currentObject.model]));
     }
-    console.log(this.gameData);
+    //console.log("GameData")
+    //console.log(this.gameData);
   }
 }

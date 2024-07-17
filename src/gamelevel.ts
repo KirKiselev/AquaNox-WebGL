@@ -23,7 +23,7 @@ let gameLevel: GameLevel = {
 
   modelsAdditionalInfo: {
     pla_phobocaster: {
-      glowingElementsGroups: [15],
+      glowingElementsGroups: [15], 
       transparentElementsgroups: [],
       opaqueElementsgroups: [],
     },

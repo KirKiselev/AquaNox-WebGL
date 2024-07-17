@@ -3,9 +3,9 @@
 import { glMatrix, mat4, vec3 } from "gl-matrix";
 
 export class GameObject {
-  private position;
-  private rotation;
-  private model;
+  public position;
+  public rotation;
+  public model;
 
   public constructor(position: { x: number; y: number; z: number }, rotation: { x: number; y: number; z: number }, model: GameModel) {
     let positionVector = vec3.create();
@@ -56,5 +56,14 @@ export class GameModelPart {
     this.uvs;
     this.uvsBuffer;
     this.texture;
+  }
+}
+
+export class Scene {
+  public camera
+  public objectsToRender
+  public constructor() {
+     this.camera = {position: vec3, lookAt: vec3, up: vec3}
+     this.objectsToRender = {opaque: new Array<GameModelPart>(), transparent: new Array<GameModelPart>(), glowing: new Array<GameModelPart>()}
   }
 }

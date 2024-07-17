@@ -1,6 +1,9 @@
 export type MSBModel = { vertices: Array<Array<number>>; indices: Array<Array<number>>; normals: Array<Array<number>>; uvs: Array<Array<number>>; materials: Array<Array<string>> };
 
 export type GameLevel = {
+/**
+glowingElementsGroups - numbers of groups with glowing details in original model
+*/
   sourceList: {
     models: Array<string>;
     images: Array<string>;
@@ -8,7 +11,9 @@ export type GameLevel = {
   };
 
   modelsAdditionalInfo: {
+    
     [key: string]: {
+    
       glowingElementsGroups: Array<number>;
       transparentElementsgroups: Array<number>;
       opaqueElementsgroups: Array<number>;
