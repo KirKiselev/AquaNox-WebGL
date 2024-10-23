@@ -1,8 +1,9 @@
-import { GameLevel } from "./lib/types";
+import { GameLevel } from "../_types/gamelevel";
 
 let gameLevel: GameLevel = {
   sourceList: {
     models: ["pla_phobocaster", "pla_voodoobreath", "ata_tor"],
+
     images: [
       "pla_phobocaster0",
       "pla_phobocaster1",
@@ -23,34 +24,50 @@ let gameLevel: GameLevel = {
 
   modelsAdditionalInfo: {
     pla_phobocaster: {
-      glowingElementsGroups: [15], 
-      transparentElementsgroups: [],
-      opaqueElementsgroups: [],
+      renderGroups: {
+        opaqueElements: [],
+        opaqueGlowElements: [15],
+        transparentElements: [],
+        transparentGlowElements: [],
+      },
     },
 
     pla_voodoobreath: {
-      glowingElementsGroups: [14],
-      transparentElementsgroups: [],
-      opaqueElementsgroups: [],
+      renderGroups: {
+        opaqueElements: [],
+        opaqueGlowElements: [14],
+        transparentElements: [],
+        transparentGlowElements: [],
+      },
     },
 
     ata_tor: {
-      glowingElementsGroups: [],
-      transparentElementsgroups: [],
-      opaqueElementsgroups: [],
+      renderGroups: {
+        opaqueElements: [],
+        opaqueGlowElements: [],
+        transparentElements: [],
+        transparentGlowElements: [],
+      },
     },
   },
 
   gameObjects: {
+    /*
     player: {
       model: "pla_phobocaster",
       position: { x: 5, y: 5, z: 5 },
       rotation: { x: 15, y: 30, z: 45 },
     },
+    */
     npc_1: {
       model: "pla_voodoobreath",
       position: { x: 10, y: 0, z: 0 },
       rotation: { x: 0, y: 0, z: 0 },
+    },
+    npc_2: {
+      model: "pla_phobocaster",
+      position: { x: 5, y: 5, z: 5 },
+      rotation: { x: 15, y: 30, z: 45 },
     },
     enviromentObject: {
       model: "pla_voodoobreath",

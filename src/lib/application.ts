@@ -1,18 +1,22 @@
- //@ts-nocheck
+//@ts-nocheck
+
 import { Renderer } from "./renderer";
 import { InputController } from "./inputcontroller";
 import { DataModel } from "./datamodel";
+import { AssetsManager } from "./assetsmanager";
 
-import gameLevel from "../gamelevel";
-import AssetsManager from "./assetsmanager";
-import { GameLevel } from "./types";
+import gameLevel from "../_data files/gamelevel";
+import shaderInfo from "../_data files/shaders";
+
+import { GameLevel, ShaderInfo } from "../_types/types";
 
 export class Application {
   private gamelevelmap: GameLevel;
+  private shaderInfo: ShaderInfo;
 
   private canvas: HTMLCanvasElement;
   private glContext: WebGLRenderingContext | null;
-  
+
   private inputcontroller;
   private assetsmanager;
   private datamodel;
@@ -21,33 +25,34 @@ export class Application {
   public constructor(canvas: HTMLCanvasElement) {
     //
     this.gamelevelmap = gameLevel;
+    this.shaderInfo = shaderInfo;
     //
     this.canvas = canvas;
     if (!canvas) throw new Error("Canvas element doesn`t exist");
 
-    this.glContext = this.canvas.getContext("webgl");
+    //
+    this.canvas.width = 640;
+    this.canvas.height = 480;
+    //
+
+    this.glContext = this.canvas.getContext("webgl2");
     if (!this.glContext) throw new Error("Rendering context not created");
 
-    
     this.inputcontroller = new InputController();
-    this.assetsmanager = new AssetsManager(this.glContext as WebGLRenderingContext, 1024, this.gamelevelmap);
+    this.assetsmanager = new AssetsManager(this.glContext as WebGLRenderingContext, 2048, this.gamelevelmap, this.shaderInfo);
     this.datamodel = new DataModel(this.assetsmanager, this.gamelevelmap);
-    this.renderer = new Renderer(this.glContext as WebGLRenderingContext, this.datamodel);
+    this.renderer = new Renderer(this.canvas, this.glContext as WebGLRenderingContext, this.datamodel, this.assetsmanager);
 
     this.start();
   }
 
-  start() {
-    this.assetsmanager!.fetchResources(this.gamelevelmap);
+  async start() {
+    await this.assetsmanager.start();
 
-    setTimeout(() => {
-      this.datamodel!.addGameObjects();
-    }, 500);
+    this.datamodel.loadLevelMap();
 
-    setTimeout(() => {
-      this.renderer.cullObjectsToRender()
-      this.renderer.prepareScene();
-      this.renderer.renderScene();
-    }, 500);
+    this.renderer.start(); //prepare scene & render
+
+    //this.assetsmanager.showTextures();
   }
 }

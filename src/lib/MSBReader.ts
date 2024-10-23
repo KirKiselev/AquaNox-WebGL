@@ -1,4 +1,4 @@
-import { MSBModel } from "./types";
+import { MSBModel } from "../_types/msbmodel";
 
 function MSBReader(file: File) {
   const fileExtension = file.name.split(".")[1];
