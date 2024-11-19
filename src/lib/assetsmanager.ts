@@ -24,7 +24,7 @@ export class AssetsManager {
   //public models: { [key: string]: GameModel };
   public models: Map<string, GameModel>;
   public textures: Map<number, WebGLTexture>;
-  public shaderPrograms: Map<string, WebGLProgram>;
+  public shaderPrograms: { [keyof: string]: WebGLProgram };
 
   private markedMaterials: Map<string, MaterialPositioningInfo>;
 
@@ -38,7 +38,7 @@ export class AssetsManager {
 
     this.models = new Map<string, GameModel>();
     this.textures = new Map<number, WebGLTexture>();
-    this.shaderPrograms = new Map<string, WebGLProgram>();
+    this.shaderPrograms = {};
 
     this.markedMaterials = new Map<string, MaterialPositioningInfo>();
   }
@@ -123,13 +123,10 @@ export class AssetsManager {
     }
 
     this.shaderInfo.shaderPrograms.forEach((program) => {
-      this.shaderPrograms.set(
-        program.programName,
-        createShaderProgram(
-          this.glContext,
-          createShader(this.glContext, this.glContext.VERTEX_SHADER, this.shaderInfo.shaderSourses.vertexShaders[program.vertexShader]),
-          createShader(this.glContext, this.glContext.FRAGMENT_SHADER, this.shaderInfo.shaderSourses.fragmentShaders[program.fragmentShader])
-        )
+      this.shaderPrograms[program.programName] = createShaderProgram(
+        this.glContext,
+        createShader(this.glContext, this.glContext.VERTEX_SHADER, this.shaderInfo.shaderSourses.vertexShaders[program.vertexShader]),
+        createShader(this.glContext, this.glContext.FRAGMENT_SHADER, this.shaderInfo.shaderSourses.fragmentShaders[program.fragmentShader])
       );
     });
   }
@@ -175,7 +172,6 @@ export class AssetsManager {
           tileRow = Math.floor(currentMaterialInfo.tile / Math.sqrt(tilesPerTexture));
           tileColumn = currentMaterialInfo.tile % Math.sqrt(tilesPerTexture);
           ctx?.drawImage(this.fetchedImages.get(material[0]) as ImageBitmap, currentMaterialResolution * tileColumn, currentMaterialResolution * tileRow);
-          //this.fetchedImages.set(material[0], null);
 
           currentMaterialInfo.offsetX = currentMaterialResolution * tileColumn;
           currentMaterialInfo.offsetY = currentMaterialResolution * tileRow;

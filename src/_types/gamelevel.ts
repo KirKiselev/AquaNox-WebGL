@@ -1,5 +1,5 @@
 export type GameLevel = {
-  /**
+  /*
   opaqueGlowElementsGroups - position of opaque groups with glowing details in original model
   */
   sourceList: {

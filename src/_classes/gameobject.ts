@@ -1,4 +1,4 @@
-import { mat4, vec3 } from "gl-matrix";
+import { mat4, vec3, quat } from "gl-matrix";
 import { GameModel } from "../_types/gamemodel";
 
 export class GameObject {
@@ -48,10 +48,8 @@ export class GameObject {
   }
 
   public updateObjectOrientationMatrix() {
-    mat4.rotateX(this.objectOrientationMatrix, this.objectOrientationMatrix, (this.rotation[0] * Math.PI) / 180);
-    mat4.rotateY(this.objectOrientationMatrix, this.objectOrientationMatrix, (this.rotation[1] * Math.PI) / 180);
-    mat4.rotateZ(this.objectOrientationMatrix, this.objectOrientationMatrix, (this.rotation[2] * Math.PI) / 180);
-
-    mat4.translate(this.objectOrientationMatrix, this.objectOrientationMatrix, this.position);
+    let q = quat.create();
+    quat.fromEuler(q, this.rotation[0], this.rotation[1], this.rotation[2]);
+    mat4.fromRotationTranslation(this.objectOrientationMatrix, q, this.position);
   }
 }

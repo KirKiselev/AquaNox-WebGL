@@ -2,7 +2,8 @@ import { GameLevel } from "../_types/gamelevel";
 
 let gameLevel: GameLevel = {
   sourceList: {
-    models: ["pla_phobocaster", "pla_voodoobreath", "ata_tor"],
+    //models: ["pla_phobocaster", "pla_voodoobreath", "ata_tor", "gun_plasma1_sht1", "gun_plasma1_sht1_copy"],
+    models: ["pla_phobocaster", "pla_voodoobreath", "ata_tor", "gun_plasma1_sht1"],
 
     images: [
       "pla_phobocaster0",
@@ -18,6 +19,8 @@ let gameLevel: GameLevel = {
       "ata_tor_0",
       "ata_tor_1",
       "ata_tor_2",
+      "gun_plasma1_sht1b",
+      //"gun_plasma1_sht1b_copy",
     ],
     sounds: [],
   },
@@ -49,6 +52,24 @@ let gameLevel: GameLevel = {
         transparentGlowElements: [],
       },
     },
+
+    gun_plasma1_sht1: {
+      renderGroups: {
+        opaqueElements: [],
+        opaqueGlowElements: [],
+        transparentElements: [0],
+        transparentGlowElements: [],
+      },
+    },
+
+    gun_plasma1_sht1_copy: {
+      renderGroups: {
+        opaqueElements: [],
+        opaqueGlowElements: [],
+        transparentElements: [0],
+        transparentGlowElements: [],
+      },
+    },
   },
 
   gameObjects: {
@@ -61,17 +82,47 @@ let gameLevel: GameLevel = {
     */
     npc_1: {
       model: "pla_voodoobreath",
-      position: { x: 10, y: 0, z: 0 },
+      position: { x: 15, y: 0, z: -15 },
       rotation: { x: 0, y: 0, z: 0 },
     },
     npc_2: {
       model: "pla_phobocaster",
-      position: { x: 5, y: 5, z: 5 },
-      rotation: { x: 15, y: 30, z: 45 },
+      position: { x: 0, y: 0, z: 15 },
+      rotation: { x: 0, y: 0, z: 0 },
     },
-    enviromentObject: {
+    enviromentObject_0: {
       model: "pla_voodoobreath",
-      position: { x: -10, y: 0, z: 0 },
+      position: { x: -15, y: 0, z: 0 },
+      rotation: { x: 0, y: 0, z: 0 },
+    },
+
+    enviromentObject_1: {
+      model: "gun_plasma1_sht1",
+      position: { x: -10, y: 0, z: 20 },
+      rotation: { x: 0, y: 0, z: 0 },
+    },
+
+    enviromentObject_2: {
+      model: "gun_plasma1_sht1",
+      position: { x: -5, y: 0, z: 20 },
+      rotation: { x: 0, y: 0, z: 0 },
+    },
+
+    enviromentObject_3: {
+      model: "gun_plasma1_sht1",
+      position: { x: 0, y: 0, z: 20 },
+      rotation: { x: 0, y: 0, z: 0 },
+    },
+
+    enviromentObject_4: {
+      model: "gun_plasma1_sht1",
+      position: { x: 5, y: 0, z: 20 },
+      rotation: { x: 0, y: 0, z: 0 },
+    },
+
+    enviromentObject_5: {
+      model: "gun_plasma1_sht1",
+      position: { x: 10, y: 0, z: 20 },
       rotation: { x: 0, y: 0, z: 0 },
     },
   },

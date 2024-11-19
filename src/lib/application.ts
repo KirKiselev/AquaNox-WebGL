@@ -38,21 +38,40 @@ export class Application {
     this.glContext = this.canvas.getContext("webgl2");
     if (!this.glContext) throw new Error("Rendering context not created");
 
-    this.inputcontroller = new InputController();
+    this.inputcontroller = new InputController(this.canvas);
     this.assetsmanager = new AssetsManager(this.glContext as WebGLRenderingContext, 2048, this.gamelevelmap, this.shaderInfo);
-    this.datamodel = new DataModel(this.assetsmanager, this.gamelevelmap);
+    this.datamodel = new DataModel(this.inputcontroller, this.assetsmanager, this.gamelevelmap);
     this.renderer = new Renderer(this.canvas, this.glContext as WebGLRenderingContext, this.datamodel, this.assetsmanager);
+
+    this.gameLoop = this.gameLoop.bind(this);
 
     this.start();
   }
 
   async start() {
+    this.inputcontroller.start();
     await this.assetsmanager.start();
 
     this.datamodel.loadLevelMap();
+    this.renderer.createLinksToRenderProgramVariables();
 
-    this.renderer.start(); //prepare scene & render
+    //this.renderer.start(); //prepare scene & render
+
+    //____ start_game_loop ____
+
+    this.gameLoop();
+
+    ///////////////////////////
 
     //this.assetsmanager.showTextures();
+  }
+
+  gameLoop() {
+    this.datamodel.updateGameState();
+
+    this.renderer.prepareScene();
+    this.renderer.renderScene();
+
+    //window.requestAnimationFrame(this.gameLoop);
   }
 }
